@@ -1,0 +1,28 @@
+# Secrets are never committed.
+.env
+.env.*
+*.env
+**/api_key*
+
+# Flutter / Dart build output
+.dart_tool/
+.packages
+build/
+.fvm/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Android build output & internals
+android/.gradle/
+android/local.properties
+
+# Misc
+.DS_Store
+logs/
+coverage/

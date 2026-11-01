@@ -1,0 +1,58 @@
+name: growth
+description: "Growth — a calm, offline-first self-improvement feed with nightly check-ins, an LLM dashboard and thoughtful reads."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: 2.6.1
+
+  # Local storage (offline first)
+  sqflite: 2.4.5
+  path: 1.9.1
+  flutter_secure_storage: 11.2.0
+
+  # Network (HTTPS only): RSS feeds + user's own LLM endpoint
+  http: 1.6.0
+  xml: ">=6.5.0 <8.0.0"
+
+  # Background work
+  workmanager: 0.10.10
+  android_alarm_manager_plus: 5.1.2
+
+  # Notifications + permissions
+  flutter_local_notifications: 22.3.3
+  timezone: 0.10.1
+  permission_handler: 13.0.2
+  android_intent_plus: ">=5.3.0 <6.0.0"
+
+  # Sharing
+  share_plus: 13.3.1
+  cross_file: ">=1.0.0 <2.0.0"
+  path_provider: ">=2.1.0 <3.0.0"
+
+  # Formatting
+  intl: ">=0.19.0 <0.21.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/grain.png
+  fonts:
+    - family: Playfair Display
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
