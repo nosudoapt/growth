@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import '../core/db.dart';
 import '../logic/rotation.dart';
 import '../seed/thoughts.dart';
 import 'llm.dart';
 import 'prompts.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// Thought of the day: generated once daily by the LLM from the profile.
 /// Output longer than 2 sentences (or any failure) falls back to the bundled
@@ -17,7 +16,7 @@ class ThoughtRepo {
     final db = await Db.instance();
     final now = today ?? DateTime.now();
     final rows = await db.query('thought_days', orderBy: 'date DESC');
-    final recent = recentSince(
+    final recent = Rotation.recentSince(
       [for (final r in rows) (r['date'] as String, r['thought_index'] as int)],
       30,
       now,

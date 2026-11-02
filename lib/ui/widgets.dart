@@ -38,8 +38,9 @@ class _GoldGlowState extends State<GoldGlow>
   @override
   Widget build(BuildContext context) {
     final reduced = Motion.isReduced(context);
-    if (reduced)
+    if (reduced) {
       return _glow(0.55);
+    }
     return AnimatedBuilder(
       animation: _c,
       builder: (context, _) => _glow(0.4 + 0.25 * math.sin(_c.value * 2 * math.pi)),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../core/db.dart';
 import '../logic/rotation.dart';
 import '../seed/questions.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// One night's submitted check-in record.
 class CheckInRecord {
@@ -42,7 +43,7 @@ class CheckinRepo {
     final rows = await db.query('question_history',
         orderBy: 'date DESC', limit: 31);
     final today = DateTime.now();
-    final recent = recentSince(
+    final recent = Rotation.recentSince(
       [
         for (final r in rows)
           (r['date'] as String, r['question_index'] as int),

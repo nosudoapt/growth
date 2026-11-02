@@ -12,6 +12,7 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 pubspec.lock
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 
 # IDE
 .idea/

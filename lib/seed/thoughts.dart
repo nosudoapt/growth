@@ -7,10 +7,10 @@ class Thought {
   /// Count of words; used for the staggered word animation.
   List<String> get words => text.split(RegExp(r'\s+'));
 
-  int sentenceCount() =>
-      RegExp(r'[.!?]').allMatches(text).length == 0
-          ? 1
-          : RegExp(r'[.!?]').allMatches(text).length;
+  int sentenceCount() {
+    final matches = RegExp(r'[.!?]').allMatches(text);
+    return matches.isEmpty ? 1 : matches.length;
+  }
 }
 
 const List<Thought> kThoughtBank = [

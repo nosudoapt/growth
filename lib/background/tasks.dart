@@ -49,10 +49,9 @@ Future<void> dailyFeedRefresh() async {
   if (await Db.kvGet('last_feed_refresh') == today) return;
   final feeds = await FeedsRepo.all();
   final rss = RssRepo();
-  var stored = 0;
   for (final f in feeds) {
     if (f.url.isEmpty) continue;
-    stored += await rss.fetchAndCache(f.url, f.topic);
+    await rss.fetchAndCache(f.url, f.topic);
   }
   await Db.kvSet('last_feed_refresh', today);
   await runPendingRebuild();

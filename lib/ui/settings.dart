@@ -9,6 +9,7 @@ import '../core/db.dart';
 import '../core/theme.dart';
 import '../logic/profile.dart';
 import '../notifications/notifs.dart';
+import '../seed/feeds.dart' show SeedFeed;
 import '../repos/export.dart';
 import '../repos/feeds.dart';
 import '../repos/llm.dart';
@@ -394,6 +395,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: TextStyle(fontSize: 16, color: GCol.text))),
         TextButton(
             onPressed: () async {
+              final messenger = ScaffoldMessenger.of(context);
               final ok = await showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
@@ -419,7 +421,7 @@ class _SettingsPageState extends State<SettingsPage> {
               if (ok == true) {
                 await Exports.deleteAll();
                 if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                       const SnackBar(content: Text('All data deleted.')));
                 }
                 _load();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../core/db.dart';
+import 'package:sqflite/sqflite.dart';
 import '../domain/dashboard.dart';
 import '../repos/prompts.dart';
 import 'llm.dart';
@@ -124,8 +125,8 @@ class DashboardRepo {
   static Future<List<String>> recentLikes() async {
     final db = await Db.instance();
     final rows = await db.rawQuery(
-        "SELECT item_key FROM interactions WHERE kind = 'like' "
-        "AND ts > ? ORDER BY ts DESC LIMIT 50",
+        'SELECT item_key FROM interactions WHERE kind = \'like\' '
+        'AND ts > ? ORDER BY ts DESC LIMIT 50',
         [DateTime.now().subtract(const Duration(days: 7)).millisecondsSinceEpoch]);
     return [for (final r in rows) r['item_key'] as String];
   }
@@ -133,8 +134,8 @@ class DashboardRepo {
   static Future<List<String>> recentSkips() async {
     final db = await Db.instance();
     final rows = await db.rawQuery(
-        "SELECT item_key FROM interactions WHERE kind = 'skip' "
-        "AND ts > ? ORDER BY ts DESC LIMIT 50",
+        'SELECT item_key FROM interactions WHERE kind = \'skip\' '
+        'AND ts > ? ORDER BY ts DESC LIMIT 50',
         [DateTime.now().subtract(const Duration(days: 7)).millisecondsSinceEpoch]);
     return [for (final r in rows) r['item_key'] as String];
   }

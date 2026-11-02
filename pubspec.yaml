@@ -11,29 +11,29 @@ dependencies:
     sdk: flutter
 
   # State management
-  flutter_riverpod: 2.6.1
+  flutter_riverpod: ^2.6.1
 
   # Local storage (offline first)
-  sqflite: 2.4.5
-  path: 1.9.1
-  flutter_secure_storage: 11.2.0
+  sqflite: ^2.4.5
+  path: ^1.9.1
+  flutter_secure_storage: ^11.2.0
 
   # Network (HTTPS only): RSS feeds + user's own LLM endpoint
-  http: 1.6.0
+  http: ^1.6.0
   xml: ">=6.5.0 <8.0.0"
 
   # Background work
-  workmanager: 0.10.10
-  android_alarm_manager_plus: 5.1.2
+  workmanager: ^0.10.10
+  android_alarm_manager_plus: ^5.1.2
 
   # Notifications + permissions
-  flutter_local_notifications: 22.3.3
-  timezone: 0.10.1
-  permission_handler: 13.0.2
+  flutter_local_notifications: ^22.3.3
+  timezone: ^0.11.2
+  permission_handler: ^13.0.2
   android_intent_plus: ">=5.3.0 <6.0.0"
 
   # Sharing
-  share_plus: 13.3.1
+  share_plus: ^13.3.1
   path_provider: ">=2.1.0 <3.0.0"
 
   # Formatting
@@ -42,7 +42,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: 6.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true

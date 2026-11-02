@@ -429,7 +429,7 @@ class _ActionRail extends StatelessWidget {
 
 /// Card entrance: fade + rise 16px over 350ms (degrades to a fade when the
 /// system reduce-motion setting is on).
-class _PageEntrance extends StatefulWidget {  const _PageEntrance({required this.child});
+class _PageEntrance extends StatefulWidget {  const _PageEntrance({required this.child, super.key});
 
   final Widget child;
 

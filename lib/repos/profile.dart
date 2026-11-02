@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../logic/profile.dart';
 import '../core/db.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// The local text profile (≤800 words), compiled from signals and rewritten
 /// weekly. Stored as one row; regenerated offline, refined by the LLM.

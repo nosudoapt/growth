@@ -222,7 +222,7 @@ class _CheckinPageState extends rp.ConsumerState<CheckinPage> {
       if (!config.apiKeySet) return null;
       final profile = await ProfileRepo.current();
       final nights = await CheckinRepo.lastNights(1);
-      return llm.complete<String>(
+      return await llm.complete<String>(
         config: config,
         system: 'You ask one kind, specific follow-up question at a night\'s '
             'check-in. Reply with ONLY the question.',
@@ -317,7 +317,7 @@ class _CheckinPageState extends rp.ConsumerState<CheckinPage> {
 
 /// Shared dark stage for the nightly side of the app.
 class _NightSide extends StatelessWidget {
-  const _NightSide({required this.child, super.key});
+  const _NightSide({required this.child});
 
   final Widget child;
 

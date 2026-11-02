@@ -136,12 +136,10 @@ class LlmService {
   Future<void> _addUsage(LlmConfig c, int tokens) async {
     final m = SpendCap.monthKey(DateTime.now());
     final raw = await Db.kvGet('token_usage_current');
-    var prevUsd = 0.0;
     var prevTokens = 0;
     if (raw != null) {
       final j = jsonDecode(raw) as Map<String, dynamic>;
       if (j['month'] == m) {
-        prevUsd = (j['usd'] as num?)?.toDouble() ?? 0.0;
         prevTokens = (j['tokens'] as num?)?.toInt() ?? 0;
       }
     }

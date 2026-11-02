@@ -8,6 +8,7 @@ import '../repos/dashboard.dart';
 import '../repos/llm.dart';
 import '../repos/profile.dart';
 import 'charts.dart';
+import 'widgets.dart';
 
 /// LLM dashboard, six tabs, each stamped "Last updated".
 class DashboardPage extends rp.ConsumerStatefulWidget {
@@ -129,26 +130,6 @@ class _DashboardPageState extends rp.ConsumerState<DashboardPage>
   Widget _selfImprovement() {
     final d7 = _lastDates(7);
     final d30 = _lastDates(30);
-    final data = _data;
-    Widget chart(String key, double maxValue, List<String> dates) {
-      final list = data == null
-          ? List<double>.filled(dates.length, 0)
-          : _series(data, key, dates);
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(key,
-              style: const TextStyle(fontSize: 16, color: GCol.muted)),
-          TrendLineChart(
-              values: list,
-              color: GCol.gold,
-              maxValue: maxValue,
-              label: ''),
-          const SizedBox(height: 10),
-        ],
-      );
-    }
-
     return ListView(padding: const EdgeInsets.all(20), children: [
       ..._trendSection(d7, 'Last 7 days'),
       ..._trendSection(d30, 'Last 30 days'),
@@ -177,9 +158,9 @@ class _DashboardPageState extends rp.ConsumerState<DashboardPage>
               fontFamily: 'Playfair Display', fontSize: 20, color: GCol.text)),
       const SizedBox(height: 8),
       if (data != null) ...[
-        chart('mood_trend', 5, dates),
-        chart('focus_trend', 5, dates),
-        chart('time_well_spent_trend', 5, dates),
+        _chart('mood_trend', 5, dates),
+        _chart('focus_trend', 5, dates),
+        _chart('time_well_spent_trend', 5, dates),
       ],
     ];
   }
@@ -195,6 +176,26 @@ class _DashboardPageState extends rp.ConsumerState<DashboardPage>
       }
     }
     return [for (final d in dates) perDate[d] ?? 0.0];
+  }
+
+  /// One trend chart section; zero-filled when no dashboard data yet.
+  Widget _chart(String key, double maxValue, List<String> dates) {
+    final data = _data;
+    final list = data == null
+        ? List<double>.filled(dates.length, 0)
+        : _series(data, key, dates);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(key, style: const TextStyle(fontSize: 16, color: GCol.muted)),
+        TrendLineChart(
+            values: list,
+            color: GCol.gold,
+            maxValue: maxValue,
+            label: ''),
+        const SizedBox(height: 10),
+      ],
+    );
   }
 
   // Tab 2: reading.

@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 
 import '../core/db.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// One cached read item.
 class ReadItem {
@@ -36,7 +37,7 @@ class ReadItem {
   final String note;
 
   int estimatedMinutes() {
-    final words = (title + ' ' + summary).split(RegExp(r'\s+')).length;
+    final words = ('$title $summary').split(RegExp(r'\s+')).length;
     final mins = words / 200;
     if (mins < 1) return 1;
     return mins.round();
@@ -92,11 +93,11 @@ class RssRepo {
       try {
         final r = await db.insert('reads', {
           'guid': guid,
-          'source': (it['source'] ?? url) as String,
+          'source': it['source'] ?? url,
           'topic': topic,
           'title': it['title'] ?? '',
-          'summary': stripHtml((it['summary'] ?? '') as String),
-          'published': (it['published'] ?? '') as String,
+          'summary': stripHtml(it['summary'] ?? ''),
+          'published': it['published'] ?? '',
           'cached_at': Db.today(),
         }, conflictAlgorithm: ConflictAlgorithm.ignore);
         if (r > 0) stored++;
@@ -118,9 +119,10 @@ class RssRepo {
           : (atomEntries.isNotEmpty ? atomEntries : doc.findAllElements('rdf:item'));
       final out = <Map<String, String?>>[];
       for (final n in nodes) {
-        String? text(String tag) =>
-            n.findAllElements(tag, namespace: '*').map((e) => e.text).firstOrNull ??
-                n.findAllElements(tag).map((e) => e.text).firstOrNull;
+        String? text(String tag) => n.descendantElements
+                .where((e) => e.name.local == tag)
+                .map((e) => e.innerText)
+                .firstOrNull;
         out.add({
           'title': text('title')?.trim(),
           'summary': (text('description') ?? text('content'))?.trim(),

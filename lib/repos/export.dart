@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -84,8 +85,8 @@ class Exports {
   static Future<List<MapEntry<String, int>>> _countByKind(String kind) async {
     final db = await Db.instance();
     final rows = await db.rawQuery(
-        "SELECT item_key, COUNT(*) AS c FROM interactions WHERE kind = ? "
-        "AND ts > ? GROUP BY item_key ORDER BY c DESC LIMIT 10",
+        'SELECT item_key, COUNT(*) AS c FROM interactions WHERE kind = ? '
+        'AND ts > ? GROUP BY item_key ORDER BY c DESC LIMIT 10',
         [kind, DateTime.now().subtract(const Duration(days: 7)).millisecondsSinceEpoch]);
     return [
       for (final r in rows)
@@ -108,8 +109,8 @@ class Exports {
     }
     final json = const JsonEncoder.withIndent('  ').convert(out);
     final dir = await getApplicationDocumentsDirectory();
-    final f = dir
-        .childFile('growth_export_${DateTime.now().millisecondsSinceEpoch}.json');
+    final f = File(
+        '${dir.path}/growth_export_${DateTime.now().millisecondsSinceEpoch}.json');
     await f.writeAsString(json);
     await SharePlus.instance.share(ShareParams(
       text: 'Growth data export (no API key included).',

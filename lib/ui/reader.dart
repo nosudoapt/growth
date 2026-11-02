@@ -23,7 +23,7 @@ class _ReaderPageState extends State<ReaderPage>
     with WidgetsBindingObserver {
   ReadItem? _item;
   double _fontScale = 1.0; // 0.85 .. 1.35
-  Stopwatch _watch = Stopwatch();
+  final Stopwatch _watch = Stopwatch();
   Timer? _saveTimer;
   double _minutesThisSession = 0.0;
   bool _openedNoteField = false;
