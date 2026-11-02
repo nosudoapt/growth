@@ -47,6 +47,7 @@ class _GoldGlowState extends State<GoldGlow>
   }
 
   Widget _glow(double strength) {
+    final base = widget.intense ? 0.16 : 0.08;
     return IgnorePointer(
       child: Container(
         decoration: BoxDecoration(
@@ -54,7 +55,7 @@ class _GoldGlowState extends State<GoldGlow>
             center: const Alignment(-0.6, -0.4),
             radius: 1.15,
             colors: [
-              GCol.gold.withValues(alpha: (widget.intense ? .16 : .1) * strength / .6),
+              GCol.gold.withValues(alpha: base * strength),
               Colors.transparent,
             ],
           ),

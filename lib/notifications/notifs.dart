@@ -184,11 +184,11 @@ AndroidNotificationDetails _channel(
     name,
     channelDescription: desc,
     importance: importance,
-    priority: Priority.defaultPriority,
+    priority: Priority.high,
     color: const Color(0xFFF5C04A),
     category: AndroidNotificationCategory.reminder,
     enableVibration: vibrate,
-    playSound: false,
+    playSound: true,
   );
 }
 
