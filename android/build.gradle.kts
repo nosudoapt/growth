@@ -1,5 +1,3 @@
-import org.gradle.api.Directory
-
 allprojects {
     repositories {
         google()
